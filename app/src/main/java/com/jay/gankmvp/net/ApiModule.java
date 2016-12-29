@@ -1,5 +1,10 @@
-package com.jay.gankmvp.data;
+package com.jay.gankmvp.net;
 
+import android.content.Context;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,6 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ApiModule {
+
+    private static final String BASE_URL = "http://gank.io/api/";
 
     @Provides
     @Singleton
@@ -54,7 +61,7 @@ public class ApiModule {
     @Singleton
     public ApiService provideApiService(OkHttpClient client, Gson gson) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(BASE_URL)
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))

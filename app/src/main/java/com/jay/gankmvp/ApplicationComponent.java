@@ -2,6 +2,8 @@ package com.jay.gankmvp;
 
 import android.content.Context;
 
+import com.jay.gankmvp.net.ApiModule;
+
 import dagger.Component;
 
 /**

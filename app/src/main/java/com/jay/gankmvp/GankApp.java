@@ -2,9 +2,20 @@ package com.jay.gankmvp;
 
 import android.app.Application;
 
+import com.facebook.common.logging.FLog;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.listener.RequestListener;
+import com.facebook.imagepipeline.listener.RequestLoggingListener;
 import com.facebook.stetho.Stetho;
-import com.jay.gankmvp.data.ApiComponent;
+import com.jay.gankmvp.net.ApiComponent;
+import com.jay.gankmvp.net.ApiModule;
+import com.jay.gankmvp.net.DaggerApiComponent;
 import com.squareup.leakcanary.LeakCanary;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by jay on 16/12/21.
@@ -25,5 +36,29 @@ public class GankApp extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .build();
 
+        mApiComponent = DaggerApiComponent.builder()
+                .apiModule(new ApiModule())
+                .build();
+
+        initFresco();
+    }
+
+    private void initFresco() {
+        Set<RequestListener> requestListeners = new HashSet<>();
+        requestListeners.add(new RequestLoggingListener());
+        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
+                .newBuilder(this, mApiComponent.getOkHttpClient())
+                .setRequestListeners(requestListeners)
+                .build();
+        Fresco.initialize(this, config);
+        FLog.setMinimumLoggingLevel(FLog.VERBOSE);
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return mApplicationComponent;
+    }
+
+    public ApiComponent getApiComponent() {
+        return mApiComponent;
     }
 }

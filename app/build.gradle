@@ -49,6 +49,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
 
     compile "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
+    compile "com.facebook.fresco:imagepipeline-okhttp3:$rootProject.ext.frescoImagepipelineOkhttpVersion"
 
     compile "com.facebook.stetho:stetho:$rootProject.ext.stethoVersion"
     compile "com.facebook.stetho:stetho-okhttp3:$rootProject.ext.stethoVersion"
@@ -56,5 +57,7 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakcanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanaryVersion"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakcanaryVersion"
+
+    compile "me.drakeet.multitype:multitype:$rootProject.ext.multiTypeVersion"
 
 }
