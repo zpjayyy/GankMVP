@@ -1,6 +1,6 @@
-package com.jay.gankmvp.ui;
+package com.jay.gankmvp.injection.module;
 
-import com.jay.gankmvp.presenter.contract.MainContract;
+import com.jay.gankmvp.ui.main.MainContract;
 
 import dagger.Module;
 import dagger.Provides;

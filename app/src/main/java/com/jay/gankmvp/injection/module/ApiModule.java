@@ -1,15 +1,11 @@
-package com.jay.gankmvp.net;
+package com.jay.gankmvp.injection.module;
 
-import android.content.Context;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.jay.gankmvp.BuildConfig;
+import com.jay.gankmvp.data.remote.ApiService;
 
 import java.util.concurrent.TimeUnit;
 

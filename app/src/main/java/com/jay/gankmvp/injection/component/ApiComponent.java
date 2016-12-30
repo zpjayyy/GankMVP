@@ -1,4 +1,7 @@
-package com.jay.gankmvp.net;
+package com.jay.gankmvp.injection.component;
+
+import com.jay.gankmvp.data.remote.ApiService;
+import com.jay.gankmvp.injection.module.ApiModule;
 
 import javax.inject.Singleton;
 

@@ -1,8 +1,6 @@
-package com.jay.gankmvp;
+package com.jay.gankmvp.injection.module;
 
 import android.content.Context;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
 
 import dagger.Module;
 import dagger.Provides;

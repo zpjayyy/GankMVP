@@ -1,8 +1,8 @@
-package com.jay.gankmvp.ui;
+package com.jay.gankmvp.injection.component;
 
-import com.jay.gankmvp.net.ApiComponent;
-import com.jay.gankmvp.presenter.MainPresenter;
-import com.jay.gankmvp.util.ActivityScoped;
+import com.jay.gankmvp.injection.ActivityScoped;
+import com.jay.gankmvp.injection.module.MainPresenterModule;
+import com.jay.gankmvp.ui.main.MainPresenter;
 
 import dagger.Component;
 

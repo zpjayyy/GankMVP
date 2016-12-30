@@ -1,8 +1,8 @@
-package com.jay.gankmvp.presenter.contract;
+package com.jay.gankmvp.ui.main;
 
 import com.jay.gankmvp.data.entity.Meizhi;
-import com.jay.gankmvp.presenter.base.BasePresenter;
-import com.jay.gankmvp.presenter.base.BaseView;
+import com.jay.gankmvp.ui.base.BasePresenter;
+import com.jay.gankmvp.ui.base.BaseView;
 
 import java.util.List;
 

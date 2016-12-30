@@ -1,4 +1,4 @@
-package com.jay.gankmvp.ui.provide;
+package com.jay.gankmvp.provide;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

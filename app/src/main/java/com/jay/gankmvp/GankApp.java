@@ -9,9 +9,12 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.listener.RequestListener;
 import com.facebook.imagepipeline.listener.RequestLoggingListener;
 import com.facebook.stetho.Stetho;
-import com.jay.gankmvp.net.ApiComponent;
-import com.jay.gankmvp.net.ApiModule;
-import com.jay.gankmvp.net.DaggerApiComponent;
+import com.jay.gankmvp.injection.component.ApiComponent;
+import com.jay.gankmvp.injection.component.ApplicationComponent;
+import com.jay.gankmvp.injection.component.DaggerApiComponent;
+import com.jay.gankmvp.injection.component.DaggerApplicationComponent;
+import com.jay.gankmvp.injection.module.ApiModule;
+import com.jay.gankmvp.injection.module.ApplicationModule;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.HashSet;

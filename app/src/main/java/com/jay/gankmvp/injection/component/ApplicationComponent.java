@@ -1,8 +1,8 @@
-package com.jay.gankmvp;
+package com.jay.gankmvp.injection.component;
 
 import android.content.Context;
 
-import com.jay.gankmvp.net.ApiModule;
+import com.jay.gankmvp.injection.module.ApplicationModule;
 
 import dagger.Component;
 

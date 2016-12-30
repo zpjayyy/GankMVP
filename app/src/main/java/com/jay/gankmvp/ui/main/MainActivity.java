@@ -1,4 +1,4 @@
-package com.jay.gankmvp.ui;
+package com.jay.gankmvp.ui.main;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,10 +13,10 @@ import android.view.View;
 import com.jay.gankmvp.GankApp;
 import com.jay.gankmvp.R;
 import com.jay.gankmvp.data.entity.Meizhi;
-import com.jay.gankmvp.presenter.MainPresenter;
-import com.jay.gankmvp.presenter.contract.MainContract;
+import com.jay.gankmvp.injection.component.DaggerMainActivityComponent;
+import com.jay.gankmvp.injection.module.MainPresenterModule;
+import com.jay.gankmvp.provide.MeizhiViewProvider;
 import com.jay.gankmvp.ui.base.ToolbarActivity;
-import com.jay.gankmvp.ui.provide.MeizhiViewProvider;
 import com.jay.gankmvp.widget.MeizhiItemDecoration;
 
 import java.util.List;

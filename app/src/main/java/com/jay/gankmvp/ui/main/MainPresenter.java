@@ -1,8 +1,7 @@
-package com.jay.gankmvp.presenter;
+package com.jay.gankmvp.ui.main;
 
 import com.jay.gankmvp.data.MeizhiData;
-import com.jay.gankmvp.net.ApiService;
-import com.jay.gankmvp.presenter.contract.MainContract;
+import com.jay.gankmvp.data.remote.ApiService;
 
 import javax.inject.Inject;
 

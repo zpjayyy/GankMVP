@@ -1,4 +1,4 @@
-package com.jay.gankmvp.presenter.base;
+package com.jay.gankmvp.ui.base;
 
 /**
  * Created by jay on 16/12/29.

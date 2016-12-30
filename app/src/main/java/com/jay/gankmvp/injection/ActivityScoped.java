@@ -1,4 +1,4 @@
-package com.jay.gankmvp.util;
+package com.jay.gankmvp.injection;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

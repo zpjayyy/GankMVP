@@ -1,4 +1,4 @@
-package com.jay.gankmvp.net;
+package com.jay.gankmvp.config;
 
 /**
  * Created by jay on 16/12/22.

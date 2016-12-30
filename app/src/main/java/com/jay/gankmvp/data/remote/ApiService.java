@@ -1,4 +1,4 @@
-package com.jay.gankmvp.net;
+package com.jay.gankmvp.data.remote;
 
 import com.jay.gankmvp.data.MeizhiData;
 
