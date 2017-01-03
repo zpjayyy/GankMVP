@@ -1,6 +1,9 @@
 package com.jay.gankmvp.data.remote;
 
 import com.jay.gankmvp.data.MeizhiData;
+import com.jay.gankmvp.data.entity.Meizhi;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;

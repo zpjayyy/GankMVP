@@ -2,6 +2,7 @@ package com.jay.gankmvp.ui.main;
 
 import com.jay.gankmvp.data.MeizhiData;
 import com.jay.gankmvp.data.remote.ApiService;
+import com.jay.gankmvp.util.RepositoryUtils;
 
 import javax.inject.Inject;
 
@@ -51,6 +52,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     private void loadMeizis(boolean forceUpdate, final boolean showLoadingUI) {
         mCompositeDisposable.add(mApiService.listMeizi("1")
+                .map(new RepositoryUtils.HttpResultFunc<MeizhiData>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MeizhiData>() {
@@ -59,13 +61,6 @@ public class MainPresenter implements MainContract.Presenter {
                         mMainView.setLoadingIndicator(false);
                         mMainView.showMeizi(meizhiData.results);
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        mMainView.setLoadingIndicator(false);
-                        mMainView.showLoadingMeiziError();
-                    }
-                }));
-
+                }, new RepositoryUtils.ErrorConsumer()));
     }
 }
