@@ -41,6 +41,7 @@ public class RepositoryUtils {
         @Override
         public void accept(Throwable throwable) throws Exception {
             Log.d(TAG, throwable.getMessage());
+
         }
     }
 

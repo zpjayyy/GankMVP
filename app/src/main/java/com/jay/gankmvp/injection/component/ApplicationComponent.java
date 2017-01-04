@@ -3,6 +3,7 @@ package com.jay.gankmvp.injection.component;
 import android.content.Context;
 
 import com.jay.gankmvp.injection.module.ApplicationModule;
+import com.jay.gankmvp.util.ToastUtils;
 
 import dagger.Component;
 
@@ -14,5 +15,7 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     Context getApplicationContext();
+
+    ToastUtils getToastUtils();
 
 }

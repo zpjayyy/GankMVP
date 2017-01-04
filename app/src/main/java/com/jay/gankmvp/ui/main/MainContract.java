@@ -18,16 +18,14 @@ public interface MainContract {
 
         void showMeizi(List<Meizhi> meizis);
 
-        void showLoadingMeiziError();
+        void showLoadingMeiziError(Throwable throwable);
 
-        void showNoMeizis();
     }
 
     interface Presenter extends BasePresenter {
 
         void loadMeizis(boolean forceUpdate);
 
-        void completeMeizi();
     }
 
 }

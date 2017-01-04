@@ -16,6 +16,6 @@ import retrofit2.http.Path;
 public interface ApiService {
 
     @GET("data/福利/10/{page}")
-    Flowable<MeizhiData> listMeizi(@Path("page") String page);
+    Flowable<MeizhiData> listMeizi(@Path("page") int page);
 
 }

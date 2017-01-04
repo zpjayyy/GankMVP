@@ -8,4 +8,6 @@ public class Constant {
 
     public static final String REQUEST_NUM = "10";
 
+    public static final int PRELOAD_SIZE = 4;
+
 }

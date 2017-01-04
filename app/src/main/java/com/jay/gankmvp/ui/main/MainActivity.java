@@ -12,7 +12,9 @@ import android.view.View;
 
 import com.jay.gankmvp.GankApp;
 import com.jay.gankmvp.R;
+import com.jay.gankmvp.config.Constant;
 import com.jay.gankmvp.data.entity.Meizhi;
+import com.jay.gankmvp.data.remote.ErrorMessageFactory;
 import com.jay.gankmvp.injection.component.DaggerMainActivityComponent;
 import com.jay.gankmvp.injection.module.MainPresenterModule;
 import com.jay.gankmvp.provide.MeizhiViewProvider;
@@ -23,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -39,6 +42,8 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
 
     MultiTypeAdapter mAdapter;
     Items mItems;
+
+    boolean mIsFirstTimeTouchBottom = true;
 
     @Override
     protected int provideContentViewId() {
@@ -67,14 +72,6 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
     }
 
     private void initView() {
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         final StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,
                 StaggeredGridLayoutManager.VERTICAL);
 
@@ -88,6 +85,39 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
         mAdapter.register(Meizhi.class, new MeizhiViewProvider());
 
         mRecyclerview.setAdapter(mAdapter);
+
+        mLayoutRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mMainPresenter.loadMeizis(true);
+            }
+        });
+
+        mRecyclerview.addOnScrollListener(getBottomListener(manager));
+    }
+
+    RecyclerView.OnScrollListener getBottomListener(final StaggeredGridLayoutManager layoutManager) {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                boolean isBottom = layoutManager.findLastCompletelyVisibleItemPositions(new int[2])[1] >=
+                        mAdapter.getItemCount() - Constant.PRELOAD_SIZE;
+
+                if (!mLayoutRefresh.isRefreshing() && isBottom) {
+                    if (!mIsFirstTimeTouchBottom) {
+                        mMainPresenter.loadMeizis(false);
+                    } else {
+                        mIsFirstTimeTouchBottom = false;
+                    }
+                }
+            }
+        };
+    }
+
+    @OnClick(R.id.fab)
+    public void onFabClick() {
+        Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     @Override
@@ -124,14 +154,11 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
     }
 
     @Override
-    public void showLoadingMeiziError() {
-
+    public void showLoadingMeiziError(Throwable throwable) {
+        String errorMessage = ErrorMessageFactory.create(this, (Exception) throwable);
+        ((GankApp) getApplication()).getApplicationComponent().getToastUtils().showLong(errorMessage);
     }
 
-    @Override
-    public void showNoMeizis() {
-
-    }
 
 }
 

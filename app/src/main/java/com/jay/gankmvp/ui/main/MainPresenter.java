@@ -23,6 +23,8 @@ public class MainPresenter implements MainContract.Presenter {
 
     private final MainContract.View mMainView;
 
+    private int mPage = 1;
+
     @Inject
     MainPresenter(ApiService apiService, MainContract.View mainView) {
         mApiService = apiService;
@@ -42,25 +44,31 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void loadMeizis(boolean forceUpdate) {
-        loadMeizis(forceUpdate, false);
+        mMainView.setLoadingIndicator(true);
+        if (forceUpdate) {
+            mPage = 1;
+        }
+        loadMeizis(mPage);
     }
 
-    @Override
-    public void completeMeizi() {
-
-    }
-
-    private void loadMeizis(boolean forceUpdate, final boolean showLoadingUI) {
-        mCompositeDisposable.add(mApiService.listMeizi("1")
+    private void loadMeizis(int page) {
+        mCompositeDisposable.add(mApiService.listMeizi(page)
                 .map(new RepositoryUtils.HttpResultFunc<MeizhiData>())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MeizhiData>() {
                     @Override
                     public void accept(MeizhiData meizhiData) throws Exception {
+                        mPage++;
                         mMainView.setLoadingIndicator(false);
                         mMainView.showMeizi(meizhiData.results);
                     }
-                }, new RepositoryUtils.ErrorConsumer()));
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mMainView.setLoadingIndicator(false);
+                        mMainView.showLoadingMeiziError(throwable);
+                    }
+                }));
     }
 }
