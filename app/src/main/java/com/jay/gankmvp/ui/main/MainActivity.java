@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
@@ -79,12 +80,14 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
 
         int space = getResources().getDimensionPixelSize(R.dimen.meizhi_item_space);
         mRecyclerview.addItemDecoration(new MeizhiItemDecoration(space));
+        mRecyclerview.setItemAnimator(new DefaultItemAnimator());
 
         mItems = new Items();
         mAdapter = new MultiTypeAdapter(mItems);
         mAdapter.register(Meizhi.class, new MeizhiViewProvider());
 
         mRecyclerview.setAdapter(mAdapter);
+
 
         mLayoutRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -125,6 +128,11 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onToolbarClick() {
+        mRecyclerview.smoothScrollToPosition(0);
     }
 
     @Override

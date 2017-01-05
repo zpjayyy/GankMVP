@@ -6,4 +6,8 @@
 
     <dimen name="meizhi_item_space">8dp</dimen>
 
+    <dimen name="card_margin">4dp</dimen>
+
+    <dimen name="card_text_padding">8dp</dimen>
+
 </resources>

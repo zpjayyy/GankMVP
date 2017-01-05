@@ -46,7 +46,7 @@ public abstract class ToolbarActivity extends BaseActivity {
         mToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onToolbarClick();
             }
         });
 

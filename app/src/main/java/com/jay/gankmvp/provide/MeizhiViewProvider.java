@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jay.gankmvp.R;
@@ -39,6 +40,8 @@ public class MeizhiViewProvider
 
         @BindView(R.id.image_meizhi)
         SimpleDraweeView mImageMeizhi;
+        @BindView(R.id.text_desc)
+        TextView mTextDesc;
 
         ViewHolder(View itemView) {
             super(itemView);
