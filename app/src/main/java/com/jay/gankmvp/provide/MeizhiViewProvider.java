@@ -14,6 +14,7 @@ import com.jay.gankmvp.data.entity.Gank;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.jay.gankmvp.ui.gank.GankActivity;
 import me.drakeet.multitype.ItemViewProvider;
 
 /**
@@ -28,6 +29,9 @@ public class MeizhiViewProvider extends ItemViewProvider<Gank, MeizhiViewProvide
   }
 
   @Override protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Gank meizi) {
+
+    holder.gank = meizi;
+
     Uri uri = Uri.parse(meizi.url);
     holder.mImageMeizhi.setImageURI(uri);
 
@@ -39,9 +43,17 @@ public class MeizhiViewProvider extends ItemViewProvider<Gank, MeizhiViewProvide
     @BindView(R.id.image_meizhi) SimpleDraweeView mImageMeizhi;
     @BindView(R.id.text_desc) TextView mTextDesc;
 
+    private Gank gank;
+
     ViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
+
+      itemView.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View v) {
+          v.getContext().startActivity(GankActivity.newIntent(v.getContext(), gank.publishedAt));
+        }
+      });
     }
   }
 }

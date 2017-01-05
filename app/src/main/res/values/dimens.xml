@@ -10,4 +10,6 @@
 
   <dimen name="card_text_padding">8dp</dimen>
 
+  <dimen name="item_gan_category_text_size">18sp</dimen>
+
 </resources>

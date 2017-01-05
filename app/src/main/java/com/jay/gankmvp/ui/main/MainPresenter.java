@@ -1,5 +1,6 @@
 package com.jay.gankmvp.ui.main;
 
+import android.support.annotation.NonNull;
 import com.jay.gankmvp.data.GankData;
 import com.jay.gankmvp.data.entity.Gank;
 import com.jay.gankmvp.data.remote.ApiService;

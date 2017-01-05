@@ -31,4 +31,5 @@ public class Gank {
   public String url;
   public boolean used;
   public String who;
+  public String[] images;
 }

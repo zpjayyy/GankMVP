@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="@dimen/card_text_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <TextView
+      android:id="@+id/text_desc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/text_category"
+      tools:text="用于做Path动画的自定义View"/>
+
+</RelativeLayout>

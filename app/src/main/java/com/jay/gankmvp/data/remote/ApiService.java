@@ -1,6 +1,7 @@
 package com.jay.gankmvp.data.remote;
 
 import com.jay.gankmvp.config.Constant;
+import com.jay.gankmvp.data.DailyGankData;
 import com.jay.gankmvp.data.GankData;
 
 import io.reactivex.Flowable;
@@ -18,4 +19,7 @@ public interface ApiService {
 
   @GET("data/休息视频/" + Constant.REQUEST_NUM + "/{page}") Flowable<GankData> listVideo(
       @Path("page") int page);
+
+  @GET("day/{year}/{month}/{day}") Flowable<DailyGankData> listGank(@Path("year") int year,
+      @Path("month") int month, @Path("day") int day);
 }

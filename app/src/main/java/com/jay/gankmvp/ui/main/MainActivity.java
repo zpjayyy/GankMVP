@@ -16,10 +16,9 @@ import com.jay.gankmvp.config.Constant;
 import com.jay.gankmvp.data.entity.Gank;
 import com.jay.gankmvp.data.remote.ErrorMessageFactory;
 import com.jay.gankmvp.injection.component.DaggerMainActivityComponent;
-import com.jay.gankmvp.injection.module.MainPresenterModule;
+import com.jay.gankmvp.injection.module.MainActivityModule;
 import com.jay.gankmvp.provide.MeizhiViewProvider;
 import com.jay.gankmvp.ui.base.ToolbarActivity;
-import com.jay.gankmvp.widget.MeizhiItemDecoration;
 
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
 
     mMainPresenter = DaggerMainActivityComponent.builder()
         .apiComponent(((GankApp) getApplication()).getApiComponent())
-        .mainPresenterModule(new MainPresenterModule(this))
+        .mainActivityModule(new MainActivityModule(this))
         .build()
         .getMainPresenter();
 
@@ -84,6 +83,7 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
 
     mLayoutRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override public void onRefresh() {
+        mItems.clear();
         mMainPresenter.loadMeizis(true);
       }
     });
