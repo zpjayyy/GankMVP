@@ -18,72 +18,65 @@ import com.jay.gankmvp.R;
 
 public abstract class ToolbarActivity extends BaseActivity {
 
-    abstract protected int provideContentViewId();
+  abstract protected int provideContentViewId();
 
-    public void onToolbarClick() {
+  public void onToolbarClick() {
+  }
+
+  protected AppBarLayout mAppbar;
+  protected Toolbar mToolbar;
+  protected boolean mIsHidden = false;
+
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(provideContentViewId());
+
+    mAppbar = (AppBarLayout) findViewById(R.id.app_bar_layout);
+    mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+    if (mToolbar == null || mAppbar == null) {
+      throw new IllegalStateException("The subclass of ToobarActivity must contain a toolbar");
     }
 
+    setSupportActionBar(mToolbar);
+    mToolbar.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        onToolbarClick();
+      }
+    });
 
-    protected AppBarLayout mAppbar;
-    protected Toolbar mToolbar;
-    protected boolean mIsHidden = false;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(provideContentViewId());
-
-        mAppbar = (AppBarLayout) findViewById(R.id.app_bar_layout);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        if (mToolbar == null || mAppbar == null) {
-            throw new IllegalStateException(
-                    "The subclass of ToobarActivity must contain a toolbar"
-            );
-        }
-
-        setSupportActionBar(mToolbar);
-        mToolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onToolbarClick();
-            }
-        });
-
-        if (canBack()) {
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) actionBar.setDisplayShowHomeEnabled(true);
-        }
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            mAppbar.setElevation(10.6f);
-        }
-
+    if (canBack()) {
+      ActionBar actionBar = getSupportActionBar();
+      if (actionBar != null) actionBar.setDisplayShowHomeEnabled(true);
     }
 
-    public boolean canBack() {
-        return false;
+    if (Build.VERSION.SDK_INT >= 21) {
+      mAppbar.setElevation(10.6f);
     }
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
+  public boolean canBack() {
+    return false;
+  }
 
-    protected void setAppBarAlpha(float alpha) {
-        mAppbar.setAlpha(alpha);
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) {
+      onBackPressed();
+      return true;
+    } else {
+      return super.onOptionsItemSelected(item);
     }
+  }
 
-    protected void hideOrShowToobar() {
-        mAppbar.animate()
-                .translationY(mIsHidden ? 0 : -mAppbar.getHeight())
-                .setInterpolator(new DecelerateInterpolator())
-                .start();
-        mIsHidden = !mIsHidden;
-    }
+  protected void setAppBarAlpha(float alpha) {
+    mAppbar.setAlpha(alpha);
+  }
+
+  protected void hideOrShowToobar() {
+    mAppbar.animate()
+        .translationY(mIsHidden ? 0 : -mAppbar.getHeight())
+        .setInterpolator(new DecelerateInterpolator())
+        .start();
+    mIsHidden = !mIsHidden;
+  }
 }

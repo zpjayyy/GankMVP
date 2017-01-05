@@ -10,10 +10,8 @@ import dagger.Component;
  * Created by jay on 16/12/29.
  */
 
-@ActivityScoped
-@Component(dependencies = ApiComponent.class, modules = MainPresenterModule.class)
+@ActivityScoped @Component(dependencies = ApiComponent.class, modules = MainPresenterModule.class)
 public interface MainActivityComponent {
 
-    MainPresenter getMainPresenter();
-
+  MainPresenter getMainPresenter();
 }

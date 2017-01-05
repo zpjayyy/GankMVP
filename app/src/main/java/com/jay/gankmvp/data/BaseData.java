@@ -6,6 +6,5 @@ package com.jay.gankmvp.data;
 
 public class BaseData {
 
-    public boolean error;
-
+  public boolean error;
 }

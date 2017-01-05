@@ -10,11 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
-    protected String TAG;
+  protected String TAG;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        TAG = this.getClass().getSimpleName();
-    }
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    TAG = this.getClass().getSimpleName();
+  }
 }

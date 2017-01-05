@@ -20,67 +20,61 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter implements MainContract.Presenter {
 
-    private final ApiService mApiService;
+  private final ApiService mApiService;
 
-    private final CompositeDisposable mCompositeDisposable;
+  private final CompositeDisposable mCompositeDisposable;
 
-    private final MainContract.View mMainView;
+  private final MainContract.View mMainView;
 
-    private int mPage = 1;
+  private int mPage = 1;
 
-    @Inject
-    MainPresenter(ApiService apiService, MainContract.View mainView) {
-        mApiService = apiService;
-        mMainView = mainView;
-        mCompositeDisposable = new CompositeDisposable();
+  @Inject MainPresenter(ApiService apiService, MainContract.View mainView) {
+    mApiService = apiService;
+    mMainView = mainView;
+    mCompositeDisposable = new CompositeDisposable();
+  }
+
+  @Override public void subscribe() {
+    loadMeizis(false);
+  }
+
+  @Override public void unsubscribe() {
+    mCompositeDisposable.clear();
+  }
+
+  @Override public void loadMeizis(boolean forceUpdate) {
+    mMainView.setLoadingIndicator(true);
+    if (forceUpdate) {
+      mPage = 1;
     }
+    loadMeizis(mPage);
+  }
 
-    @Override
-    public void subscribe() {
-        loadMeizis(false);
-    }
-
-    @Override
-    public void unsubscribe() {
-        mCompositeDisposable.clear();
-    }
-
-    @Override
-    public void loadMeizis(boolean forceUpdate) {
-        mMainView.setLoadingIndicator(true);
-        if (forceUpdate) {
-            mPage = 1;
-        }
-        loadMeizis(mPage);
-    }
-
-    private void loadMeizis(int page) {
-        mCompositeDisposable.add(Flowable.zip(mApiService.listMeizi(page), mApiService.listVideo(page),
-                new BiFunction<GankData, GankData, GankData>() {
-                    @Override
-                    public GankData apply(GankData meizhiData, GankData videoData) throws Exception {
-                        for (int i = 0; i < meizhiData.results.size(); i++) {
-                            meizhiData.results.get(i).desc = videoData.results.get(i).desc;
-                        }
-                        return meizhiData;
-                    }
-                })
-                .map(new RepositoryUtils.HttpResultFunc<GankData>())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<GankData>() {
-                    @Override
-                    public void accept(GankData gankData) throws Exception {
-                        mPage++;
-                        mMainView.setLoadingIndicator(false);
-                        mMainView.showMeizi(gankData.results);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        mMainView.setLoadingIndicator(false);
-                        mMainView.showLoadingMeiziError(throwable);
-                    }
-                }));
-    }
+  private void loadMeizis(int page) {
+    mCompositeDisposable.add(Flowable.zip(mApiService.listMeizi(page), mApiService.listVideo(page),
+        new BiFunction<GankData, GankData, GankData>() {
+          @Override public GankData apply(GankData meizhiData, GankData videoData)
+              throws Exception {
+            for (int i = 0; i < meizhiData.results.size(); i++) {
+              meizhiData.results.get(i).desc = videoData.results.get(i).desc;
+            }
+            return meizhiData;
+          }
+        })
+        .map(new RepositoryUtils.HttpResultFunc<GankData>())
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<GankData>() {
+          @Override public void accept(GankData gankData) throws Exception {
+            mPage++;
+            mMainView.setLoadingIndicator(false);
+            mMainView.showMeizi(gankData.results);
+          }
+        }, new Consumer<Throwable>() {
+          @Override public void accept(Throwable throwable) throws Exception {
+            mMainView.setLoadingIndicator(false);
+            mMainView.showLoadingMeiziError(throwable);
+          }
+        }));
+  }
 }

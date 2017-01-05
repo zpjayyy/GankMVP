@@ -10,6 +10,6 @@ import java.util.List;
 
 public class GankData extends BaseData {
 
-    public List<Gank> results;
+  public List<Gank> results;
 
 }

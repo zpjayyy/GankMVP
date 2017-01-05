@@ -6,10 +6,10 @@ package com.jay.gankmvp.data.remote;
 
 public class ApiException extends Exception {
 
-    public String message;
+  public String message;
 
-    public ApiException(String message) {
-        super(message);
-        this.message = message;
-    }
+  public ApiException(String message) {
+    super(message);
+    this.message = message;
+  }
 }

@@ -11,26 +11,25 @@ import javax.inject.Inject;
 
 public class ToastUtils {
 
-    Context mContext;
+  Context mContext;
 
-    @Inject
-    public ToastUtils(Context context) {
-        this.mContext = context;
-    }
+  @Inject public ToastUtils(Context context) {
+    this.mContext = context;
+  }
 
-    public void showShort(int stringResId) {
-        Toast.makeText(mContext, stringResId, Toast.LENGTH_SHORT).show();
-    }
+  public void showShort(int stringResId) {
+    Toast.makeText(mContext, stringResId, Toast.LENGTH_SHORT).show();
+  }
 
-    public void showShort(String stringToast) {
-        Toast.makeText(mContext, stringToast, Toast.LENGTH_SHORT).show();
-    }
+  public void showShort(String stringToast) {
+    Toast.makeText(mContext, stringToast, Toast.LENGTH_SHORT).show();
+  }
 
-    public void showLong(int stringResId) {
-        Toast.makeText(mContext, stringResId, Toast.LENGTH_SHORT).show();
-    }
+  public void showLong(int stringResId) {
+    Toast.makeText(mContext, stringResId, Toast.LENGTH_SHORT).show();
+  }
 
-    public void showLong(String stringToast) {
-        Toast.makeText(mContext, stringToast, Toast.LENGTH_SHORT).show();
-    }
+  public void showLong(String stringToast) {
+    Toast.makeText(mContext, stringToast, Toast.LENGTH_SHORT).show();
+  }
 }

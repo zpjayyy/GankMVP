@@ -10,8 +10,6 @@ import javax.inject.Scope;
  * Created by jay on 16/12/29.
  */
 
-@Documented
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
+@Documented @Scope @Retention(RetentionPolicy.RUNTIME)
 public @interface ActivityScoped {
 }

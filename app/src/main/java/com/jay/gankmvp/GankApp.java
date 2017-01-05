@@ -26,42 +26,38 @@ import java.util.Set;
 
 public class GankApp extends Application {
 
-    private ApplicationComponent mApplicationComponent;
-    private ApiComponent mApiComponent;
+  private ApplicationComponent mApplicationComponent;
+  private ApiComponent mApiComponent;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Stetho.initializeWithDefaults(this);
-        LeakCanary.install(this);
+  @Override public void onCreate() {
+    super.onCreate();
+    Stetho.initializeWithDefaults(this);
+    LeakCanary.install(this);
 
-        mApplicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .build();
+    mApplicationComponent =
+        DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
 
-        mApiComponent = DaggerApiComponent.builder()
-                .apiModule(new ApiModule())
-                .build();
+    mApiComponent = DaggerApiComponent.builder().apiModule(new ApiModule()).build();
 
-        initFresco();
-    }
+    initFresco();
+  }
 
-    private void initFresco() {
-        Set<RequestListener> requestListeners = new HashSet<>();
-        requestListeners.add(new RequestLoggingListener());
-        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
-                .newBuilder(this, mApiComponent.getOkHttpClient())
-                .setRequestListeners(requestListeners)
-                .build();
-        Fresco.initialize(this, config);
-        FLog.setMinimumLoggingLevel(FLog.VERBOSE);
-    }
+  private void initFresco() {
+    Set<RequestListener> requestListeners = new HashSet<>();
+    requestListeners.add(new RequestLoggingListener());
+    ImagePipelineConfig config =
+        OkHttpImagePipelineConfigFactory.newBuilder(this, mApiComponent.getOkHttpClient())
+            .setRequestListeners(requestListeners)
+            .build();
+    Fresco.initialize(this, config);
+    FLog.setMinimumLoggingLevel(FLog.VERBOSE);
+  }
 
-    public ApplicationComponent getApplicationComponent() {
-        return mApplicationComponent;
-    }
+  public ApplicationComponent getApplicationComponent() {
+    return mApplicationComponent;
+  }
 
-    public ApiComponent getApiComponent() {
-        return mApiComponent;
-    }
+  public ApiComponent getApiComponent() {
+    return mApiComponent;
+  }
 }

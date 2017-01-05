@@ -19,35 +19,29 @@ import me.drakeet.multitype.ItemViewProvider;
 /**
  * Created by jay on 16/12/29.
  */
-public class MeizhiViewProvider
-        extends ItemViewProvider<Gank, MeizhiViewProvider.ViewHolder> {
+public class MeizhiViewProvider extends ItemViewProvider<Gank, MeizhiViewProvider.ViewHolder> {
 
-    @NonNull
-    @Override
-    protected ViewHolder onCreateViewHolder(
-            @NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-        View root = inflater.inflate(R.layout.item_meizi, parent, false);
-        return new ViewHolder(root);
+  @NonNull @Override protected ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater,
+      @NonNull ViewGroup parent) {
+    View root = inflater.inflate(R.layout.item_meizi, parent, false);
+    return new ViewHolder(root);
+  }
+
+  @Override protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Gank meizi) {
+    Uri uri = Uri.parse(meizi.url);
+    holder.mImageMeizhi.setImageURI(uri);
+
+    holder.mTextDesc.setText(meizi.desc);
+  }
+
+  static class ViewHolder extends RecyclerView.ViewHolder {
+
+    @BindView(R.id.image_meizhi) SimpleDraweeView mImageMeizhi;
+    @BindView(R.id.text_desc) TextView mTextDesc;
+
+    ViewHolder(View itemView) {
+      super(itemView);
+      ButterKnife.bind(this, itemView);
     }
-
-    @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Gank meizi) {
-        Uri uri = Uri.parse(meizi.url);
-        holder.mImageMeizhi.setImageURI(uri);
-
-        holder.mTextDesc.setText(meizi.desc);
-    }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.image_meizhi)
-        SimpleDraweeView mImageMeizhi;
-        @BindView(R.id.text_desc)
-        TextView mTextDesc;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
+  }
 }

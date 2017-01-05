@@ -10,18 +10,18 @@ import android.view.View;
 
 public class MeizhiItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int space;
+  private int space;
 
-    public MeizhiItemDecoration(int space) {
-        this.space = space;
-    }
+  public MeizhiItemDecoration(int space) {
+    this.space = space;
+  }
 
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int position = parent.getChildLayoutPosition(view);
-        if (position % 2 == 0) {
-            outRect.right = space;
-        }
+  @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+      RecyclerView.State state) {
+    int position = parent.getChildLayoutPosition(view);
+    if (position % 2 == 0) {
+      outRect.right = space;
     }
+  }
 }
 

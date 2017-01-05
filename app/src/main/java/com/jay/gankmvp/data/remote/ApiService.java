@@ -13,10 +13,9 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
-    @GET("data/福利/" + Constant.REQUEST_NUM + "/{page}")
-    Flowable<GankData> listMeizi(@Path("page") int page);
+  @GET("data/福利/" + Constant.REQUEST_NUM + "/{page}") Flowable<GankData> listMeizi(
+      @Path("page") int page);
 
-    @GET("data/休息视频/" + Constant.REQUEST_NUM + "/{page}")
-    Flowable<GankData> listVideo(@Path("page") int page);
-
+  @GET("data/休息视频/" + Constant.REQUEST_NUM + "/{page}") Flowable<GankData> listVideo(
+      @Path("page") int page);
 }

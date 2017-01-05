@@ -12,20 +12,17 @@ import java.util.List;
 
 public interface MainContract {
 
-    interface View extends BaseView<Presenter> {
+  interface View extends BaseView<Presenter> {
 
-        void setLoadingIndicator(boolean active);
+    void setLoadingIndicator(boolean active);
 
-        void showMeizi(List<Gank> meizis);
+    void showMeizi(List<Gank> meizis);
 
-        void showLoadingMeiziError(Throwable throwable);
+    void showLoadingMeiziError(Throwable throwable);
+  }
 
-    }
+  interface Presenter extends BasePresenter {
 
-    interface Presenter extends BasePresenter {
-
-        void loadMeizis(boolean forceUpdate);
-
-    }
-
+    void loadMeizis(boolean forceUpdate);
+  }
 }
