@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jay.gankmvp.R;
-import com.jay.gankmvp.data.entity.Meizhi;
+import com.jay.gankmvp.data.entity.Gank;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +20,7 @@ import me.drakeet.multitype.ItemViewProvider;
  * Created by jay on 16/12/29.
  */
 public class MeizhiViewProvider
-        extends ItemViewProvider<Meizhi, MeizhiViewProvider.ViewHolder> {
+        extends ItemViewProvider<Gank, MeizhiViewProvider.ViewHolder> {
 
     @NonNull
     @Override
@@ -31,9 +31,11 @@ public class MeizhiViewProvider
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Meizhi meizi) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Gank meizi) {
         Uri uri = Uri.parse(meizi.url);
         holder.mImageMeizhi.setImageURI(uri);
+
+        holder.mTextDesc.setText(meizi.desc);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -9,12 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.jay.gankmvp.GankApp;
 import com.jay.gankmvp.R;
 import com.jay.gankmvp.config.Constant;
-import com.jay.gankmvp.data.entity.Meizhi;
+import com.jay.gankmvp.data.entity.Gank;
 import com.jay.gankmvp.data.remote.ErrorMessageFactory;
 import com.jay.gankmvp.injection.component.DaggerMainActivityComponent;
 import com.jay.gankmvp.injection.module.MainPresenterModule;
@@ -84,7 +83,7 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
 
         mItems = new Items();
         mAdapter = new MultiTypeAdapter(mItems);
-        mAdapter.register(Meizhi.class, new MeizhiViewProvider());
+        mAdapter.register(Gank.class, new MeizhiViewProvider());
 
         mRecyclerview.setAdapter(mAdapter);
 
@@ -156,7 +155,7 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
     }
 
     @Override
-    public void showMeizi(List<Meizhi> meizis) {
+    public void showMeizi(List<Gank> meizis) {
         mItems.addAll(meizis);
         mAdapter.notifyDataSetChanged();
     }

@@ -1,6 +1,6 @@
 package com.jay.gankmvp.ui.main;
 
-import com.jay.gankmvp.data.entity.Meizhi;
+import com.jay.gankmvp.data.entity.Gank;
 import com.jay.gankmvp.ui.base.BasePresenter;
 import com.jay.gankmvp.ui.base.BaseView;
 
@@ -16,7 +16,7 @@ public interface MainContract {
 
         void setLoadingIndicator(boolean active);
 
-        void showMeizi(List<Meizhi> meizis);
+        void showMeizi(List<Gank> meizis);
 
         void showLoadingMeiziError(Throwable throwable);
 

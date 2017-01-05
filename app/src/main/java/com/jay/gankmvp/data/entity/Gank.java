@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by jay on 16/12/22.
  */
 
-public class Meizhi {
+public class Gank {
 
 
     /**

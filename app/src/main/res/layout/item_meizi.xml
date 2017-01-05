@@ -3,23 +3,30 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/card_margin"
     android:foreground="?attr/selectableItemBackground"
     card_view:cardCornerRadius="4dp">
 
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/image_meizhi"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:padding="@dimen/card_text_padding"
-        tools:text="我的描述" />
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image_meizhi"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <TextView
+            android:id="@+id/text_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="@dimen/card_text_padding"
+            tools:text="我的描述" />
+
+    </LinearLayout>
+
 
 </android.support.v7.widget.CardView>
