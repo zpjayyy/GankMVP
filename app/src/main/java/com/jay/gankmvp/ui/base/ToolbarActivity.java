@@ -47,7 +47,7 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     if (canBack()) {
       ActionBar actionBar = getSupportActionBar();
-      if (actionBar != null) actionBar.setDisplayShowHomeEnabled(true);
+      if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     if (Build.VERSION.SDK_INT >= 21) {

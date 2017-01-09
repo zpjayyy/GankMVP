@@ -2,11 +2,13 @@ package com.jay.gankmvp.ui.gank;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jay.gankmvp.GankApp;
 import com.jay.gankmvp.R;
 import com.jay.gankmvp.data.entity.Gank;
@@ -29,18 +31,26 @@ import me.drakeet.multitype.MultiTypeAdapter;
 public class GankActivity extends ToolbarActivity implements GankContract.View {
 
   private static final String EXTRA_DATE = "extra_date";
+  private static final String EXTRA_MEIZHI_URL = "extra_meizhi_url";
 
   @BindView(R.id.recyclerview_gank) RecyclerView mRecyclerviewGank;
+  @BindView(R.id.image_meizhi) SimpleDraweeView mImageMeizhi;
 
+  String mMeizhiUrl;
   Date mDate;
   GankPresenter mGankPresenter;
 
   MultiTypeAdapter mAdapter;
   Items mItems;
 
-  public static Intent newIntent(Context context, Date date) {
+  int mYear;
+  int mMonth;
+  int mDay;
+
+  public static Intent newIntent(Context context, Date date, String meizhiUrl) {
     Intent intent = new Intent(context, GankActivity.class);
     intent.putExtra(EXTRA_DATE, date);
+    intent.putExtra(EXTRA_MEIZHI_URL, meizhiUrl);
     return intent;
   }
 
@@ -52,7 +62,7 @@ public class GankActivity extends ToolbarActivity implements GankContract.View {
     super.onCreate(savedInstanceState);
     ButterKnife.bind(this);
     parseIntent();
-    initView();
+    initCalendarAndLoadData();
 
     mGankPresenter = DaggerGankActivityComponent.builder()
         .apiComponent(((GankApp) getApplication()).getApiComponent())
@@ -60,7 +70,9 @@ public class GankActivity extends ToolbarActivity implements GankContract.View {
         .build()
         .getGankPresenter();
 
-    initCalendarAndLoadData();
+
+    initView();
+
   }
 
   @Override protected void onDestroy() {
@@ -68,19 +80,31 @@ public class GankActivity extends ToolbarActivity implements GankContract.View {
     mGankPresenter.unsubscribe();
   }
 
+  @Override public boolean canBack() {
+    return true;
+  }
+
   private void parseIntent() {
     mDate = (Date) getIntent().getSerializableExtra(EXTRA_DATE);
+    mMeizhiUrl = getIntent().getStringExtra(EXTRA_MEIZHI_URL);
   }
 
   private void initCalendarAndLoadData() {
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(mDate);
 
-    mGankPresenter.loadDailyGankData(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-        calendar.get(Calendar.DAY_OF_MONTH));
+    mYear = calendar.get(Calendar.YEAR);
+    mMonth = calendar.get(Calendar.MONTH) + 1;
+    mDay =  calendar.get(Calendar.DAY_OF_MONTH);
+
   }
 
   private void initView() {
+
+    setTitle(mYear + "/" + mMonth + "/" + mDay);
+
+    mImageMeizhi.setImageURI(Uri.parse(mMeizhiUrl));
+
     final LinearLayoutManager manager = new LinearLayoutManager(this);
     mRecyclerviewGank.setLayoutManager(manager);
 
@@ -92,6 +116,7 @@ public class GankActivity extends ToolbarActivity implements GankContract.View {
 
     mRecyclerviewGank.setAdapter(mAdapter);
 
+    mGankPresenter.loadDailyGankData(mYear, mMonth, mDay);
   }
 
   @Override public void setLoadingIndicator(boolean active) {

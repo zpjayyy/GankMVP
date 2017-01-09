@@ -51,7 +51,7 @@ public class MeizhiViewProvider extends ItemViewProvider<Gank, MeizhiViewProvide
 
       itemView.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View v) {
-          v.getContext().startActivity(GankActivity.newIntent(v.getContext(), gank.publishedAt));
+          v.getContext().startActivity(GankActivity.newIntent(v.getContext(), gank.publishedAt, gank.url));
         }
       });
     }
