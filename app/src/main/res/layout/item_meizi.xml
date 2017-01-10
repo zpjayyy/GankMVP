@@ -16,7 +16,8 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image_meizhi"
         android:layout_width="match_parent"
-        android:layout_height="150dp"/>
+        android:layout_height="150dp"
+        android:transitionName="meizhi"/>
 
     <TextView
         android:id="@+id/text_desc"

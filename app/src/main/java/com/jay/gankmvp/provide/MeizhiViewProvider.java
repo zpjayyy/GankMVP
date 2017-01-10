@@ -14,6 +14,7 @@ import com.jay.gankmvp.data.entity.Gank;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.jay.gankmvp.func.OnItemTouchListener;
 import com.jay.gankmvp.ui.gank.GankActivity;
 import me.drakeet.multitype.ItemViewProvider;
 
@@ -21,6 +22,8 @@ import me.drakeet.multitype.ItemViewProvider;
  * Created by jay on 16/12/29.
  */
 public class MeizhiViewProvider extends ItemViewProvider<Gank, MeizhiViewProvider.ViewHolder> {
+
+  private OnItemTouchListener mOnItemTouchListener;
 
   @NonNull @Override protected ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater,
       @NonNull ViewGroup parent) {
@@ -38,7 +41,11 @@ public class MeizhiViewProvider extends ItemViewProvider<Gank, MeizhiViewProvide
     holder.mTextDesc.setText(meizi.desc);
   }
 
-  static class ViewHolder extends RecyclerView.ViewHolder {
+  public void setOnItemTouchListener(OnItemTouchListener onItemTouchListener) {
+    this.mOnItemTouchListener = onItemTouchListener;
+  }
+
+  class ViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.image_meizhi) SimpleDraweeView mImageMeizhi;
     @BindView(R.id.text_desc) TextView mTextDesc;
@@ -51,7 +58,7 @@ public class MeizhiViewProvider extends ItemViewProvider<Gank, MeizhiViewProvide
 
       itemView.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View v) {
-          v.getContext().startActivity(GankActivity.newIntent(v.getContext(), gank.publishedAt, gank.url));
+          mOnItemTouchListener.onTouch(v, mImageMeizhi, gank);
         }
       });
     }

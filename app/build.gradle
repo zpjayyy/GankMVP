@@ -61,4 +61,6 @@ dependencies {
 
     compile "me.drakeet.multitype:multitype:$rootProject.ext.multiTypeVersion"
 
+    compile "jp.wasabeef:recyclerview-animators:$rootProject.ext.recyclerviewAnimatorsVersion"
+
 }

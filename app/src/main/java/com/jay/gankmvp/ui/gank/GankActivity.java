@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.ChangeBounds;
+import android.transition.TransitionSet;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -21,6 +23,7 @@ import com.jay.gankmvp.ui.base.ToolbarActivity;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import jp.wasabeef.recyclerview.animators.FlipInLeftYAnimator;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -103,6 +106,10 @@ public class GankActivity extends ToolbarActivity implements GankContract.View {
 
     setTitle(mYear + "/" + mMonth + "/" + mDay);
 
+    TransitionSet transitionSet = new TransitionSet();
+    transitionSet.addTransition(new ChangeBounds());
+    getWindow().setSharedElementEnterTransition(transitionSet);
+
     mImageMeizhi.setImageURI(Uri.parse(mMeizhiUrl));
 
     final LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -114,6 +121,7 @@ public class GankActivity extends ToolbarActivity implements GankContract.View {
     mAdapter.register(String.class, new CategoryViewProvider());
     mAdapter.register(Gank.class, new GankViewProvider());
 
+    mRecyclerviewGank.setItemAnimator(new FlipInLeftYAnimator());
     mRecyclerviewGank.setAdapter(mAdapter);
 
     mGankPresenter.loadDailyGankData(mYear, mMonth, mDay);

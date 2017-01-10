@@ -58,4 +58,6 @@ ext {
 
     multiTypeVersion = '2.3.2'
 
+    recyclerviewAnimatorsVersion = '2.2.5'
+
 }

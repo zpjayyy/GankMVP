@@ -1,30 +1,34 @@
 package com.jay.gankmvp.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.transition.Scene;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.jay.gankmvp.GankApp;
 import com.jay.gankmvp.R;
 import com.jay.gankmvp.config.Constant;
 import com.jay.gankmvp.data.entity.Gank;
 import com.jay.gankmvp.data.remote.ErrorMessageFactory;
+import com.jay.gankmvp.func.OnItemTouchListener;
 import com.jay.gankmvp.injection.component.DaggerMainActivityComponent;
 import com.jay.gankmvp.injection.module.MainActivityModule;
 import com.jay.gankmvp.provide.MeizhiViewProvider;
 import com.jay.gankmvp.ui.base.ToolbarActivity;
-
+import com.jay.gankmvp.ui.gank.GankActivity;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -37,6 +41,7 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
   MainPresenter mMainPresenter;
 
   MultiTypeAdapter mAdapter;
+  MeizhiViewProvider mMeizhiViewProvider;
   Items mItems;
 
   boolean mIsFirstTimeTouchBottom = true;
@@ -73,11 +78,14 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
 
     //        int space = getResources().getDimensionPixelSize(R.dimen.meizhi_item_space);
     //        mRecyclerview.addItemDecoration(new MeizhiItemDecoration(space));
-    mRecyclerview.setItemAnimator(new DefaultItemAnimator());
+    mRecyclerview.setItemAnimator(new FadeInAnimator());
 
     mItems = new Items();
     mAdapter = new MultiTypeAdapter(mItems);
-    mAdapter.register(Gank.class, new MeizhiViewProvider());
+
+    mMeizhiViewProvider = new MeizhiViewProvider();
+
+    mAdapter.register(Gank.class, mMeizhiViewProvider);
 
     mRecyclerview.setAdapter(mAdapter);
 
@@ -88,7 +96,10 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
       }
     });
 
+    mMeizhiViewProvider.setOnItemTouchListener(getOnItemTouchListener());
+
     mRecyclerview.addOnScrollListener(getBottomListener(manager));
+
   }
 
   RecyclerView.OnScrollListener getBottomListener(final StaggeredGridLayoutManager layoutManager) {
@@ -103,6 +114,24 @@ public class MainActivity extends ToolbarActivity implements MainContract.View {
           } else {
             mIsFirstTimeTouchBottom = false;
           }
+        }
+      }
+    };
+  }
+
+  OnItemTouchListener getOnItemTouchListener() {
+    return new OnItemTouchListener() {
+      @Override public void onTouch(View v, View meizhiView, Gank gank) {
+
+        Intent intent = GankActivity.newIntent(MainActivity.this, gank.publishedAt, gank.url);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            MainActivity.this, meizhiView, "meizhi");
+
+        try {
+          ActivityCompat.startActivity(MainActivity.this, intent, optionsCompat.toBundle());
+        } catch (IllegalArgumentException e) {
+          e.printStackTrace();
+          startActivity(intent);
         }
       }
     };
